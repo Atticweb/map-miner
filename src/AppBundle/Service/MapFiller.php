@@ -53,7 +53,7 @@ class MapFiller
                     'lat' => $lat + ( $i * $options['grid_offset']['lat'] ),
                     'lng' => $lng + ( $j * $options['grid_offset']['lng'] )
                 );
-                $seed = preg_replace('/\D/', '', $point['lat'].$point['lng']);
+                $seed = preg_replace('/\D/', '', substr($point['lat'],3).substr($point['lng'],2)).date('jny');
                 mt_srand($seed);
                 $random = mt_rand(0,100);
 
