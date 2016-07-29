@@ -17,6 +17,7 @@ class GameDataController extends Controller
      */
     public function getMapData(Request $request){
         $body = $request->getContent();
+        $mapFiller = $this->get('app.mapfiller');
         return new Response('test');
     }
 
