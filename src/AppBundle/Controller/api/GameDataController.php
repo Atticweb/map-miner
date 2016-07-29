@@ -5,8 +5,8 @@ namespace AppBundle\Controller\api;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class GameDataController extends Controller
 {
@@ -16,9 +16,13 @@ class GameDataController extends Controller
      * @Method("GET")
      */
     public function getMapData(Request $request){
-        $body = $request->getContent();
+        $lat = floatval($request->query->get('lat'));
+        $lng = floatval($request->query->get('lng'));
         $mapFiller = $this->get('app.mapfiller');
-        return new Response('test');
+        if( !isset($lat) || !isset($lng) ) {
+            throw $this->createNotFoundException('There is something wrong here');
+        }
+        return new JsonResponse($mapFiller->getMapData($lat, $lng));
     }
 
 }
