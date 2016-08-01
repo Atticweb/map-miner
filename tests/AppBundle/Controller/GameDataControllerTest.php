@@ -15,5 +15,6 @@ class GameDataControllerTest extends WebTestCase
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('Content-Type'));
         $this->assertNotEmpty($response->getContent());
+        // dump($response->getContent());
     }
 }
