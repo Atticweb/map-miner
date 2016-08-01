@@ -31,8 +31,6 @@ function getAllPoints(cur_pos)
         method : 'GET',
         data: { lat: cur_pos.coords.latitude, lng: cur_pos.coords.longitude }
     }).done(function(json){
-
-        console.debug(json);
         $.each(json, function(key, data) {
             var latLng = new google.maps.LatLng(data.lat, data.lng);
             // Creating a marker and putting it on the map
