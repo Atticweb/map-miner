@@ -6,11 +6,17 @@ namespace AppBundle\Service;
 class MapFiller
 {
 
-    public function __construct()
-    {
-
-    }
-
+    /**
+     * Generates a daily random array with markers from the current location
+     *
+     * @param float $lat        Current latitude from where it builds up
+     * @param float $lng        Current longitude from where it builds up
+     * @param array $options    Optional additional options
+     *
+     * @return array            All the markers
+     *
+     * @throws \RuntimeException When an invalid option is provided
+     */
     public function getMapData($lat, $lng, array $options = array())
     {
         $lat = round($lat, 3);
@@ -22,7 +28,7 @@ class MapFiller
             'grid_offset' => array(
                 'lat' => .00025, // can it be divided by 1
                 'lng' => .0005, // can it be divided by 1
-            )
+            ),
         );
 
         foreach ($options as $option) {
@@ -51,7 +57,7 @@ class MapFiller
             {
                 $point = array(
                     'lat' => $lat + ( $i * $options['grid_offset']['lat'] ),
-                    'lng' => $lng + ( $j * $options['grid_offset']['lng'] )
+                    'lng' => $lng + ( $j * $options['grid_offset']['lng'] ),
                 );
                 $seed = preg_replace('/\D/', '', substr($point['lat'],3).substr($point['lng'],2)).date('jny');
                 mt_srand($seed);

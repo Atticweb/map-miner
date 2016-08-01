@@ -17,15 +17,15 @@ class GameDataController extends Controller
      */
     public function getMapData(Request $request){
         if( !$request->isXmlHttpRequest() ) {
-            throw $this->createNotFoundException('There is something wrong here');
+            throw $this->createNotFoundException(sprintf('There is something wrong here'));
         }
         $lat = floatval($request->query->get('lat'));
         $lng = floatval($request->query->get('lng'));
         $mapFiller = $this->get('app.mapfiller');
         if( !isset($lat) || !isset($lng) ) {
-            throw $this->createNotFoundException('There is something wrong here');
+            throw $this->createNotFoundException(sprintf('There is something wrong here'));
         }
-        return new JsonResponse($mapFiller->getMapData($lat, $lng));
+        return $this->json($mapFiller->getMapData($lat, $lng));
     }
 
 }
